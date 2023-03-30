@@ -41,7 +41,7 @@ class DataTransformation:
             cat_pipeline = Pipeline(
                 steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
-                ('onehotencode', OneHotEncoder()),
+                ('onehotencode', OneHotEncoder(handle_unknown= 'ignore')),
                 ('scaler', StandardScaler(with_mean=False))
                 ]
             )
@@ -72,20 +72,21 @@ class DataTransformation:
             preprocessing_obj = self.get_data_transformer_object()
 
             target_column_name = 'price'
+            drop_columns = ['price', 'car_ID']
             numerical_columns = ['symboling', 'wheelbase', 'carlength', 'carwidth', 'carheight', 'curbweight', 'enginesize', 'boreratio', 'stroke', 'compressionratio', 'horsepower', 'peakrpm', 'citympg', 'highwaympg']
          
-            input_feature_train_df =train_df.drop(columns=[target_column_name, 'car_ID'], axis=1)
+            input_feature_train_df =train_df.drop(columns=drop_columns, axis=1)
             target_feature_train_df = train_df[target_column_name]
-            print(input_feature_train_df.shape)
-            input_feature_test_df =test_df.drop(columns=[target_column_name, 'car_ID'], axis = 1)
+          
+            input_feature_test_df =test_df.drop(columns=drop_columns, axis = 1)
             target_feature_test_df = test_df[target_column_name]
             
+            #Here i have an error that my test data heve different shape then I use handle_unknown parameter in OneHotEncoding
+            # input_feature_train_ar =preprocessing_obj.fit(input_feature_train_df)
+            # input_feature_train_arr = input_feature_train_ar.transform(input_feature_train_df).toarray()
+            # input_feature_test_arr = input_feature_train_ar.transform(input_feature_test_df).toarray()
             input_feature_train_arr =preprocessing_obj.fit_transform(input_feature_train_df).toarray()
-            input_feature_test_arr =preprocessing_obj.fit_transform(input_feature_test_df).toarray()
-
-            print(input_feature_train_arr.shape)
-            # input_feature_train_arr = np.array(input_feature_train_arr)
-            print(input_feature_train_arr.shape)
+            input_feature_test_arr =preprocessing_obj.transform(input_feature_test_df).toarray()
             
 
             train_arr= np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
