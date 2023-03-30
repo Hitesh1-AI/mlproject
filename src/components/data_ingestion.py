@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from src.exception import CustomException
 from src.logger import logging
 
+from src.components.data_transformation import DataTransformation
+
 @dataclass
 class DataIngestionConfig:
     train_data_path : str = os.path.join('artifacts', 'train_csv')
@@ -19,7 +21,10 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logging.info("Entered the data ingestion Method and Component")
         try:
-            df = pd.read_csv('src/notebook/data/iris_data.csv')
+            df = pd.read_csv('src/notebook/data/CarPrice_data.csv')
+            # num_col = [col for col in df.columns if df[col].dtype != 'object' ]
+            # cat_col = [col for col in df.columns if df[col].dtype == 'object' ]
+            # print(num_col, cat_col)
             logging.info("Read the dataset to Dataframe")
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path, header=True, index=False)
@@ -38,4 +43,7 @@ class DataIngestion:
         
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
+    train_set, test_set = obj.initiate_data_ingestion()
+    
+    obj2 = DataTransformation()
+    obj2.initiate_data_transformation(train_set, test_set)
