@@ -1,0 +1,229 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    background-color: black;
+    transition: transform 0.2s ease;
+    -webkit-transform: translateZ(0) translateX(0) rotateY(0deg);
+    transform: translateZ(0) translateX(0) rotateY(0deg);
+    transition: all 0.3s ease;
+}
+.effect-rotate-left .container {
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    -webkit-transition: -webkit-transform .4s;
+    transition: -webkit-transform .4s;
+    transition: transform .4s;
+    transition: transform .4s, -webkit-transform .4s
+}
+.rotate .container{
+    margin-left: 5px;
+    margin-top: 50px;
+    -webkit-transform: translateZ(-1800px) translateX(-50%) rotateY(45deg);
+    transform: translateZ(-1800px) translateX(-40%) rotateY(45deg);
+    transition: all 0.3s ease;
+    outline: 30px solid #0f33ff
+}
+
+.sidebar {
+    background-color: grey;
+    width: 14em;
+    transition: transform 0.1s ease-in;
+}
+.sidebargo{
+    display: none;
+    transform: translate(-226px);
+    height: 100%;
+    position: absolute;
+}
+
+.sidebar nav {
+    margin-top: 53px;
+    padding: 10px;
+}
+
+.sidebar nav ul {
+    text-decoration: none;
+    width: 11em;
+}
+
+.sidebar nav ul li {
+    list-style: none;
+    font-size: 30px;
+    padding: 28px 0px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+.sidebar nav ul li:hover {
+    cursor: pointer;
+}
+
+.main {
+   
+    display: flex;
+    flex-direction: column;
+    background-color: gainsboro;
+    height: 90vh;
+    width: 100% ;
+}
+.icons{
+    position: absolute;
+    cursor: pointer;
+    left: 6px;
+    top: 11px;
+
+}
+.cross{
+    width: 25px;
+    margin-left: 181px;
+    margin-top: 5px;
+}
+.more{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+}
+
+.main .icons .more span{
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    left: 11px;
+    top: 9px;
+    background: white;
+}
+.main .icons .more::before{
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 2px;
+    left: 8px;
+    top: 2px;
+    background: white;
+
+}
+.main .icons .more::after{
+    content: "";
+    position: absolute;
+    width: 23px;
+    height: 2px;
+    left: 8px;
+    background: white;
+    top: 16px;
+}
+.info-container{
+    background: black;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.info-container .maxwidth{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.info-container .maxwidth::before{
+    content: "";
+    background: #222;
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    width: 100%;
+}
+.info-container .maxwidth .info{
+    color: white;
+    margin: auto;
+
+}
+/* .info-container .image{
+    width: 50vw;
+    height: 50vh;
+} */
+.info-container .info ul{
+    display: flex;
+    flex-direction: column;
+}
+.info-container .info ul::before{
+    content: "";
+    background: white;
+    width: 20px;
+    height: inherit;
+    
+}
+.info-container .info ul .head{
+    font-size: 62px;
+    font-weight: 500;
+    font-family: fantasy;
+}
+.info-container .info ul .name{
+    font-size: 50px;
+    font-weight: 300;
+    font-family: fantasy;
+}
+.perspective{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.modelview{
+    position: fixed;
+    -webkit-perspective: 1500px;
+    perspective: 1500p;
+    transition: all 0.3s ease;
+}
+.outer-nav{
+    position: absolute;
+    color: white;
+    top: 30%;
+    left: 67%;
+    visibility: hidden;
+    padding: 0%;
+    text-align: center;
+    transition: visibility 0.3s ease;
+}
+.outer-nav-return{
+    position: absolute;
+    display: none;
+    width: 50vw;
+    height: 50vh;
+    transition: all 0.3s ease;
+}
+
+.outer-nav li{
+    margin: 30px 0;
+    margin-bottom: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 32px;
+    list-style: none;
+    font-weight: 500;
+    font-family: monospace;
+}
+.outer-nav>li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -25%);
+    transform: translate(-50%, -25%);
+    width: 110%;
+    height: 15px;
+    opacity: 0;
+    background-color: #0f33ff
+}
+.is-vis{
+    visibility: visible;
+}
