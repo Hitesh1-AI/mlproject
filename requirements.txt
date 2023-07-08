@@ -7,4 +7,5 @@ dill
 catboost
 xgboost
 fastapi
+uvicorn
 # -e .
