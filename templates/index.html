@@ -1,55 +1,168 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio WebSite : </title>
-    <link rel="stylesheet" href="./css/style.css">
+  <title>Car Price Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #3d2525;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: rgb(107, 107, 245);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    div{
+        text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="perspective  effect-rotate-left">
+  <h1>Car Price Prediction App</h1>
+  <form id="prediction-form">
+    <label for="CarName">Car Name:</label>
+    <input type="text" id="CarName" name="CarName">
 
-        <div class="container">
-            <div class="outer-nav-return"></div>
-            <div id="sidenav" class="sidebar sidebargo">
-                <nav>
-                    <ul>
-                        <li><a href="./index.html">About</a></li>
-                        <li><a href="./projects.html">Project</a></li>
-                        <li><a href="/contact.html">Contact Me</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="main">
-                <div class="icons">
-                    <!-- <img class="more" src="" alt="" srcset=""> -->
-                    <div class="more"><span></span></div>
-                    <img class="cross" src="./img/cross.png" alt="" srcset="">
-                </div>
-                <div class="info-container">
-                    <div class="maxwidth">
-                        <div class="info">
-                            <ul>
-                                <div class="head">Hi everyone</div>
-                                <div class="name">I`m Hitesh Kumar</div>
-                            </ul>
-                        </div>
-                        <img src="./img/introduction-visual.png" alt="" class="image">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ul class="outer-nav">
-            <li class="li">
-                Home</li>
-            <li>Projects</li>
-            <li>Skills</li>
-            <li>Contact</li>
-        </ul>
-    </div>
-    <script src="./js/index.js"></script>
-    </body>
+    <label for="symboling">Symboling:</label>
+    <input type="number" id="symboling" name="symboling">
 
+    <label for="fueltype">Fuel Type:</label>
+    <input type="text" id="fueltype" name="fueltype">
+
+    <label for="aspiration">Aspiration:</label>
+    <input type="text" id="aspiration" name="aspiration">
+
+    <label for="doornumber">Door Number:</label>
+    <input type="text" id="doornumber" name="doornumber">
+
+    <label for="carbody">Car Body:</label>
+    <input type="text" id="carbody" name="carbody">
+
+    <label for="drivewheel">Drive Wheel:</label>
+    <input type="text" id="drivewheel" name="drivewheel">
+
+    <label for="enginelocation">Engine Location:</label>
+    <input type="text" id="enginelocation" name="enginelocation">
+
+    <label for="wheelbase">Wheelbase:</label>
+    <input type="number" id="wheelbase" name="wheelbase">
+
+    <label for="carlength">Car Length:</label>
+    <input type="number" id="carlength" name="carlength">
+
+    <label for="carwidth">Car Width:</label>
+    <input type="number" id="carwidth" name="carwidth">
+
+    <label for="carheight">Car Height:</label>
+    <input type="number" id="carheight" name="carheight">
+
+    <label for="curbweight">Curb Weight:</label>
+    <input type="number" id="curbweight" name="curbweight">
+
+    <label for="cylindernumber">Cylinder Number:</label>
+    <input type="text" id="cylindernumber" name="cylindernumber">
+
+    <label for="enginesize">Engine Size:</label>
+    <input type="number" id="enginesize" name="enginesize">
+
+    <label for="fuelsystem">Fuel System:</label>
+    <input type="text" id="fuelsystem" name="fuelsystem">
+
+    <label for="boreratio">Bore Ratio:</label>
+    <input type="number" id="boreratio" name="boreratio">
+
+    <label for="stroke">Stroke:</label>
+    <input type="number" id="stroke" name="stroke">
+
+    <label for="compressionratio">Compression Ratio:</label>
+    <input type="number" id="compressionratio" name="compressionratio">
+
+    <label for="horsepower">Horsepower:</label>
+    <input type="number" id="horsepower" name="horsepower">
+
+    <label for="peakrpm">Peak RPM:</label>
+    <input type="number" id="peakrpm" name="peakrpm">
+
+    <label for="citympgL">City MPG:</label>
+    <input type="number" id="citympgL" name="citympgL">
+
+    <label for="highwaympg">Highway MPG:</label>
+    <input type="number" id="highwaympg" name="highwaympg">
+
+    <button type="button" id="submit-button">Submit</button>
+  </form>
+  <div id="result-container"></div>
+<!-- Script code -->
+
+  <script>
+    document.getElementById("submit-button").addEventListener("click", function() {
+      // Get the form data
+      var form = document.getElementById("prediction-form");
+      var formData = new FormData(form);
+
+      // Convert the form data to a JSON object
+      var jsonData = {};
+      formData.forEach(function(value, key) {
+        jsonData[key] = value;
+      });
+
+      // Make the API request
+      fetch("/prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(jsonData)
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        var resultContainer = document.getElementById("result-container");
+        resultContainer.innerHTML = "The Car Price is : " + JSON.stringify(data);
+      
+      })
+      .catch(function(error) {
+        console.error(error);
+        // Handle any errors
+      });
+    });
+  </script>
+</body>
 </html>

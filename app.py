@@ -1,10 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from src.pipeline.predict_pipeline import CustomData,PredictPipeline
 import numpy as np
+from typing import List
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 class Data(BaseModel):
     CarName : str
@@ -20,7 +25,6 @@ class Data(BaseModel):
     carwidth: float 
     carheight:float 
     curbweight:float 
-    enginetype:str
     cylindernumber: str 
     enginesize: float
     fuelsystem: str
@@ -33,24 +37,22 @@ class Data(BaseModel):
     highwaympg: float
 
 @app.get('/')
-async def get_root():
-    return 'hi!!'
+async def get_root(request: Request):
+    return templates.TemplateResponse('index.html', {"request": request})
 
-@app.post('/')
+@app.post('/prediction')
 async def post_method(data: Data):
     df = CustomData(
-        data.CarName, data.symboling,
-                    data.fueltype, data.aspiration,
+        data.CarName, data.symboling, data.fueltype,data.aspiration,
                     data.doornumber, data.carbody, data.drivewheel, data.enginelocation, data.wheelbase,
-                    data.carlength, data.carwidth, data.carheight, data.curbweight, data.enginetype,
+                    data.carlength, data.carwidth, data.carheight, data.curbweight,
                     data.cylindernumber, data.enginesize, data.fuelsystem, data.boreratio, data.stroke,
-                    data.compressionratio, data.horsepower, data.peakrpm, data.citympgL, data.highwaympg,27
+                    data.compressionratio, data.horsepower, data.peakrpm, data.citympgL, data.highwaympg
     )
 
     pred_df = df.get_data_as_data_frame()
 
-    print(pred_df)
-
     predict_pipe = PredictPipeline()
-    result = predict_pipe.predict(pred_df)
+    result = predict_pipe.predict(pred_df).tolist()
+
     return result

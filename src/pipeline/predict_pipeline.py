@@ -22,9 +22,9 @@ class PredictPipeline:
             raise CustomException(e, sys)
 
 class CustomData:
-    def __init__(self, CarName: str, symboling:float, str, fueltype: str, aspiration: str, doornumber: str, carbody: str,
+    def __init__(self, CarName:str, symboling:float, fueltype: str, aspiration: str, doornumber: str, carbody: str,
                  drivewheel: str, enginelocation: str, wheelbase: float, carlength: float, carwidth: float,
-                 carheight: float, curbweight: float, enginetype: str, cylindernumber: str, enginesize: float,
+                 carheight: float, curbweight: float, cylindernumber: str, enginesize: float,
                  fuelsystem: str, boreratio: float, stroke: float, compressionratio: float, horsepower: float,
                  peakrpm: float, citympgL: float, highwaympg: float):
         self.CarName = CarName
@@ -40,7 +40,7 @@ class CustomData:
         self.carwidth = carwidth
         self.carheight = carheight
         self.curbweight = curbweight
-        self.enginetype = enginetype
+        # self.enginetype = enginetype
         self.cylindernumber = cylindernumber
         self.enginesize = enginesize
         self.fuelsystem = fuelsystem
@@ -76,10 +76,9 @@ class CustomData:
             'carwidth': [self.carwidth],
             'carheight': [self.carheight],
             'curbweight': [self.curbweight],
-            'enginetype': [self.enginetype],
             'cylindernumber': [self.cylindernumber],
-            'enginesize': [self.enginesize],
             'fuelsystem': [self.fuelsystem],
+            'enginesize':[self.enginesize],
             'boreratio': [self.boreratio],
             'stroke': [self.stroke],
             'compressionratio': [self.compressionratio],
@@ -88,7 +87,7 @@ class CustomData:
             'citympg': [self.citympgL],
             'highwaympg': [self.highwaympg]
         }
-
+            # return custom_data_input_dict
             return pd.DataFrame(custom_data_input_dict)
 
         except Exception as e:
